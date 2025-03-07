@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Ambev.DeveloperEvaluation.ORM.Migrations
 {
     /// <inheritdoc />
-    public partial class InitializeDb : Migration
+    public partial class AddUserStartApp : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,11 +23,21 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                 table: "Users",
                 type: "timestamp with time zone",
                 nullable: true);
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "CreatedAt", "Email", "Password", "Phone", "Role", "Status", "UpdatedAt", "Username" },
+                values: new object[] { new Guid("bc56eba5-e9fc-44d3-a980-16d0a61bcfbc"), new DateTime(2025, 3, 7, 20, 5, 35, 475, DateTimeKind.Utc).AddTicks(7685), "admin@gmail.com", "Pass@w0rd", "", "Admin", "Active", null, "admin" });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                table: "Users",
+                keyColumn: "Id",
+                keyValue: new Guid("bc56eba5-e9fc-44d3-a980-16d0a61bcfbc"));
+
             migrationBuilder.DropColumn(
                 name: "CreatedAt",
                 table: "Users");
